@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 状态栏控件ID -->
+    <item name="screen_status_view" type="id" />
+    <!-- 内容控件ID -->
+    <item name="screen_content_view" type="id" />
+    <!-- 导航栏控件ID -->
+    <item name="screen_navigation_view" type="id" />
+    <!-- 状态栏TAG -->
+    <item name="screen_status_tag" type="id" />
+    <!-- 导航栏TAG -->
+    <item name="screen_navigation_tag" type="id" />
+
+</resources>
