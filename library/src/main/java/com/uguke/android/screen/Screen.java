@@ -33,6 +33,10 @@ public class Screen {
         return new ScreenLayout(act);
     }
 
+    public static void setStatusBarDarkFont(Activity activity, boolean darkFont) {
+        Util.setStatusBarDarkFont(activity, darkFont);
+    }
+
     public static void setFull(Window window) {
         setFull(window, true);
     }
