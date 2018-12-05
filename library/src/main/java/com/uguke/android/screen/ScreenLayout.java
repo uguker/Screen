@@ -37,7 +37,7 @@ class ScreenLayout extends RelativeLayout implements Bar {
     /** 内容部分 **/
     private FrameLayout mContentView;
 
-    private int immerseFlag = FLAG_IMMERSE_NONE;
+    private int mImmerseFlag = FLAG_IMMERSE_NONE;
 
     ScreenLayout(Activity activity) {
         super(activity);
@@ -219,11 +219,11 @@ class ScreenLayout extends RelativeLayout implements Bar {
             return this;
         }
         if (immerse) {
-            immerseFlag |= FLAG_IMMERSE_STATUS;
+            mImmerseFlag |= FLAG_IMMERSE_STATUS;
             layoutImmerse();
-        } else if (immerseFlag == FLAG_IMMERSE_STATUS ||
-                immerseFlag == FLAG_IMMERSE_BOTH) {
-            immerseFlag ^= FLAG_IMMERSE_STATUS;
+        } else if (mImmerseFlag == FLAG_IMMERSE_STATUS ||
+                mImmerseFlag == FLAG_IMMERSE_BOTH) {
+            mImmerseFlag ^= FLAG_IMMERSE_STATUS;
             layoutImmerse();
         }
         return this;
@@ -247,11 +247,11 @@ class ScreenLayout extends RelativeLayout implements Bar {
             return this;
         }
         if (immerse) {
-            immerseFlag |= FLAG_IMMERSE_NAVIGATION;
+            mImmerseFlag |= FLAG_IMMERSE_NAVIGATION;
             layoutImmerse();
-        } else if (immerseFlag == FLAG_IMMERSE_NAVIGATION ||
-                immerseFlag == FLAG_IMMERSE_BOTH) {
-            immerseFlag ^= FLAG_IMMERSE_NAVIGATION;
+        } else if (mImmerseFlag == FLAG_IMMERSE_NAVIGATION ||
+                mImmerseFlag == FLAG_IMMERSE_BOTH) {
+            mImmerseFlag ^= FLAG_IMMERSE_NAVIGATION;
             layoutImmerse();
         }
         return this;
@@ -357,7 +357,7 @@ class ScreenLayout extends RelativeLayout implements Bar {
     private void layoutImmerse() {
         // 重新定义
         LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-        switch (immerseFlag) {
+        switch (mImmerseFlag) {
             case FLAG_IMMERSE_STATUS:
                 params.addRule(Screen.isLandscape() ? LEFT_OF : ABOVE,
                         R.id.screen_navigation_view);
