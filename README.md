@@ -14,7 +14,7 @@
 ## 下载
 在Gradle中添加依赖：
 ```groovy
-implementation 'com.github.uguker:screen:1.0.3'
+implementation 'com.github.uguker:screen:1.0.4'
 ```
 
 ## Api
@@ -70,6 +70,10 @@ Bar fitNavigationBar(View view);
 ## 静态方法
 ```java
 
+// 隐藏真实的状态栏
+Screen.hideRealStatusBar(activity);
+// 隐藏真实的导航栏
+Screen.hideRealNavigationBar(activity);
 // 设置标题栏字体颜色
 Screen.setStatusBarDarkFont(activity, darkFont);
 // 全屏

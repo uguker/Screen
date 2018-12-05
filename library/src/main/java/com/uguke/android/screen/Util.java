@@ -25,7 +25,7 @@ class Util {
                     | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                     | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
         }
-        // 适配5.0版本
+        // 适配4.4版本
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             WindowManager.LayoutParams winParams = window.getAttributes();
             final int bits;
@@ -56,7 +56,7 @@ class Util {
                     | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                     | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
         }
-        // 适配5.0版本
+        // 适配4.4版本
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             WindowManager.LayoutParams winParams = window.getAttributes();
             final int bits;

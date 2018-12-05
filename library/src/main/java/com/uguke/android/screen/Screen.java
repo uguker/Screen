@@ -33,10 +33,35 @@ public class Screen {
         return new ScreenLayout(act);
     }
 
+    /**
+     * 功能描述：隐藏真实的状态栏
+     * @param activity 活动对象
+     */
+    public static void hideRealStatusBar(Activity activity) {
+        Util.hideRealStatusBar(activity);
+    }
+
+    /**
+     * 功能描述：隐藏真实的导航栏
+     * @param activity 活动对象
+     */
+    public static void hideRealNavigationBar(Activity activity) {
+        Util.hideRealNavigationBar(activity);
+    }
+
+    /**
+     * 功能描述:设置状态栏为深色字体
+     * @param activity 活动对象
+     * @param darkFont 是否为深色字体
+     */
     public static void setStatusBarDarkFont(Activity activity, boolean darkFont) {
         Util.setStatusBarDarkFont(activity, darkFont);
     }
 
+    /**
+     * 功能描述：设置全屏
+     * @param window Window窗体
+     */
     public static void setFull(Window window) {
         setFull(window, true);
     }
@@ -156,7 +181,7 @@ public class Screen {
             try {
                 @SuppressLint("PrivateApi")
                 Class clazz = Class.forName("android.os.SystemProperties");
-                Method m = clazz.getDeclaredMethod("gets", String.class);
+                Method m = clazz.getDeclaredMethod("get", String.class);
                 m.setAccessible(true);
                 navBarOverride = (String) m.invoke(null, "qemu.hw.mainkeys");
             } catch (Throwable e) {
@@ -165,4 +190,5 @@ public class Screen {
         }
         return navBarOverride;
     }
+
 }

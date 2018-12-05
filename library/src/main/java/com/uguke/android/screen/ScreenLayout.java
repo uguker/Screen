@@ -36,7 +36,7 @@ class ScreenLayout extends RelativeLayout implements Bar {
     private ImageView mNavigationView;
     /** 内容部分 **/
     private FrameLayout mContentView;
-
+    /** 沉侵标识 **/
     private int mImmerseFlag = FLAG_IMMERSE_NONE;
 
     ScreenLayout(Activity activity) {
@@ -83,7 +83,6 @@ class ScreenLayout extends RelativeLayout implements Bar {
 
     private void initNavigationView() {
         RelativeLayout.LayoutParams params;
-
         // 初始化导航栏
         mNavigationView = new ImageView(getContext());
         mNavigationView.setId(R.id.screen_navigation_view);
@@ -102,7 +101,6 @@ class ScreenLayout extends RelativeLayout implements Bar {
     }
 
     private void replaceContentView() {
-
         Window window = mActivity.getWindow();
         ViewGroup contentLayout = window.getDecorView().findViewById(Window.ID_ANDROID_CONTENT);
         if (contentLayout.getChildCount() > 0) {
@@ -377,7 +375,6 @@ class ScreenLayout extends RelativeLayout implements Bar {
                 break;
         }
         mContentView.setLayoutParams(params);
-
     }
 
     private boolean isLowVersion() {
