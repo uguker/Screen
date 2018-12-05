@@ -69,6 +69,9 @@ Bar fitNavigationBar(View view);
 ```
 ## 静态方法
 ```java
+
+// 设置标题栏字体颜色
+Screen.setStatusBarDarkFont(activity, darkFont);
 // 全屏
 Screen.setFull(window);
 // 全屏不包括导航栏
