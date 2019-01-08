@@ -90,10 +90,10 @@ class ScreenLayout extends RelativeLayout implements Bar {
         mNavigationView.setImageDrawable(new ColorDrawable(Color.BLACK));
         // 如果是横屏
         if (Screen.isLandscape()) {
-            params = new RelativeLayout.LayoutParams(Screen.getNavigationBarHeight(), LayoutParams.MATCH_PARENT);
+            params = new RelativeLayout.LayoutParams(Screen.getNavigationBarHeight(mActivity), LayoutParams.MATCH_PARENT);
             params.addRule(ALIGN_PARENT_RIGHT);
         } else {
-            params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, Screen.getNavigationBarHeight());
+            params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, Screen.getNavigationBarHeight(mActivity));
             params.addRule(ALIGN_PARENT_BOTTOM);
         }
         mNavigationView.setLayoutParams(params);
@@ -313,11 +313,11 @@ class ScreenLayout extends RelativeLayout implements Bar {
 
             LayoutParams navigationParams = (LayoutParams) mNavigationView.getLayoutParams();
             // 如果不需要变动
-            if (navigationParams.width == Screen.getNavigationBarHeight()) {
+            if (navigationParams.width == Screen.getNavigationBarHeight(mActivity)) {
                 return;
             }
             // 修改导航栏大小及位置
-            navigationParams.width = Screen.getNavigationBarHeight();
+            navigationParams.width = Screen.getNavigationBarHeight(mActivity);
             navigationParams.height = LayoutParams.MATCH_PARENT;
             navigationParams.addRule(ALIGN_PARENT_RIGHT);
             navigationParams.removeRule(ALIGN_PARENT_BOTTOM);
@@ -327,14 +327,14 @@ class ScreenLayout extends RelativeLayout implements Bar {
         } else {
             LayoutParams navigationParams = (LayoutParams) mNavigationView.getLayoutParams();
             // 如果不需要变动
-            if (navigationParams.height == Screen.getNavigationBarHeight()) {
+            if (navigationParams.height == Screen.getNavigationBarHeight(mActivity)) {
                 return;
             }
             // 修改导航栏大小及位置
             navigationParams.addRule(ALIGN_PARENT_BOTTOM);
             navigationParams.removeRule(ALIGN_PARENT_RIGHT);
             navigationParams.width = LayoutParams.MATCH_PARENT;
-            navigationParams.height = Screen.getNavigationBarHeight();
+            navigationParams.height = Screen.getNavigationBarHeight(mActivity);
             // 修改状态栏位置
             LayoutParams statusParams = (LayoutParams) mStatusView.getLayoutParams();
             statusParams.removeRule(LEFT_OF);

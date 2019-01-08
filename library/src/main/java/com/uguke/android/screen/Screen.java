@@ -1,10 +1,11 @@
 package com.uguke.android.screen;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.View;
@@ -114,27 +115,6 @@ public class Screen {
         return Resources.getSystem().getDisplayMetrics().heightPixels;
     }
 
-    public static int getRealWidth() {
-        return isLandscape() ? (getWidth() + getNavigationBarHeight()) : getWidth();
-    }
-
-    public static int getRealHeight() {
-        return isLandscape() ? getHeight() : (getHeight() + getNavigationBarHeight());
-    }
-
-    public static int getNavigationBarHeight() {
-        if (!hasNavigationBar()) {
-            return 0;
-        }
-        int navBarSize = 0;
-        int resourceId = Resources.getSystem().getIdentifier("navigation_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            //根据资源ID获取响应的尺寸值
-            navBarSize = Resources.getSystem().getDimensionPixelSize(resourceId);
-        }
-        return navBarSize;
-    }
-
     public static int getStatusBarHeight() {
         // 获取状态栏高度
         int statusBarSize = -1;
@@ -147,19 +127,32 @@ public class Screen {
         return statusBarSize;
     }
 
-    public static boolean hasNavigationBar() {
+    public static int getRealWidth(Activity act) {
+        return isLandscape() ? (getWidth() + getNavigationBarHeight(act)) : getWidth();
+    }
+
+    public static int getRealHeight(Activity act) {
+        return isLandscape() ? getHeight() : (getHeight() + getNavigationBarHeight(act));
+    }
+
+    public static int getNavigationBarHeight(Activity act) {
+        if (!hasNavigationBar(act)) {
+            return 0;
+        }
+        int navBarSize = 0;
+        int resourceId = Resources.getSystem().getIdentifier("navigation_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            //根据资源ID获取响应的尺寸值
+            navBarSize = Resources.getSystem().getDimensionPixelSize(resourceId);
+        }
+        return navBarSize;
+    }
+
+    public static boolean hasNavigationBar(Activity act) {
         Resources res = Resources.getSystem();
         int resourceId = res.getIdentifier("config_showNavigationBar", "bool", "android");
         if (resourceId != 0) {
-            boolean hasNav = res.getBoolean(resourceId);
-            // 是否重写导航栏
-            String navBarOverride = getNavBarOverride();
-            if ("1".equals(navBarOverride)) {
-                hasNav = false;
-            } else if ("0".equals(navBarOverride)) {
-                hasNav = true;
-            }
-            return hasNav;
+            return isNavigationBarShow(act);
         } else {
             boolean hasMenuKey = KeyCharacterMap
                     .deviceHasKey(KeyEvent.KEYCODE_MENU);
@@ -169,26 +162,35 @@ public class Screen {
         }
     }
 
+    @SuppressWarnings("unchecked")
+    public static boolean isNavigationBarShow(Activity act){
+        DisplayMetrics dm = new DisplayMetrics();
+        Display display = act.getWindowManager().getDefaultDisplay();
+        display.getMetrics(dm);
+        int screenHeight = dm.heightPixels;
+
+        DisplayMetrics realDisplayMetrics = new DisplayMetrics();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            display.getRealMetrics(realDisplayMetrics);
+        } else {
+            Class c;
+            try {
+                c = Class.forName("android.view.Display");
+                Method method = c.getMethod("getRealMetrics", DisplayMetrics.class);
+                method.invoke(display, realDisplayMetrics);
+            } catch (Exception e) {
+                realDisplayMetrics.setToDefaults();
+                e.printStackTrace();
+            }
+        }
+
+        int screenRealHeight = realDisplayMetrics.heightPixels;
+        return (screenRealHeight - screenHeight) > 0;
+    }
+
     public static boolean isLandscape() {
         return Resources.getSystem().getConfiguration().orientation
                 == Configuration.ORIENTATION_LANDSCAPE;
     }
-
-    @SuppressWarnings("unchecked")
-    private static String getNavBarOverride() {
-        String navBarOverride = null;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            try {
-                @SuppressLint("PrivateApi")
-                Class clazz = Class.forName("android.os.SystemProperties");
-                Method m = clazz.getDeclaredMethod("get", String.class);
-                m.setAccessible(true);
-                navBarOverride = (String) m.invoke(null, "qemu.hw.mainkeys");
-            } catch (Throwable e) {
-                e.printStackTrace();
-            }
-        }
-        return navBarOverride;
-    }
-
 }
