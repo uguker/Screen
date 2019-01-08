@@ -86,16 +86,18 @@ Screen.getDensity();
 Screen.getWidth();
 // 屏幕内容高度
 Screen.getHeight();
-// 屏幕真实宽度
-Screen.getRealWidth();
-// 屏幕真实高度
-Screen.getRealHeight();
-// 导航栏高度
-Screen.getNavigationBarHeight();
 // 状态栏高度
 Screen.getStatusBarHeight();
+// 屏幕真实宽度
+Screen.getRealWidth(activity);
+// 屏幕真实高度
+Screen.getRealHeight(activity);
+// 导航栏高度
+Screen.getNavigationBarHeight(activity);
 // 是否有虚拟导航栏
-Screen.hasNavigationBar();
+Screen.hasNavigationBar(activity);
+// 是否显示导航栏
+Screen.isNavigationBarShow(activity);
 // 是否是横屏显示
 Screen.isLandscape();
 

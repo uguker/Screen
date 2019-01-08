@@ -127,16 +127,16 @@ public class Screen {
         return statusBarSize;
     }
 
-    public static int getRealWidth(Activity act) {
-        return isLandscape() ? (getWidth() + getNavigationBarHeight(act)) : getWidth();
+    public static int getRealWidth(Activity activity) {
+        return isLandscape() ? (getWidth() + getNavigationBarHeight(activity)) : getWidth();
     }
 
-    public static int getRealHeight(Activity act) {
-        return isLandscape() ? getHeight() : (getHeight() + getNavigationBarHeight(act));
+    public static int getRealHeight(Activity activity) {
+        return isLandscape() ? getHeight() : (getHeight() + getNavigationBarHeight(activity));
     }
 
-    public static int getNavigationBarHeight(Activity act) {
-        if (!hasNavigationBar(act)) {
+    public static int getNavigationBarHeight(Activity activity) {
+        if (!hasNavigationBar(activity)) {
             return 0;
         }
         int navBarSize = 0;
@@ -148,11 +148,11 @@ public class Screen {
         return navBarSize;
     }
 
-    public static boolean hasNavigationBar(Activity act) {
+    public static boolean hasNavigationBar(Activity activity) {
         Resources res = Resources.getSystem();
         int resourceId = res.getIdentifier("config_showNavigationBar", "bool", "android");
         if (resourceId != 0) {
-            return isNavigationBarShow(act);
+            return isNavigationBarShow(activity);
         } else {
             boolean hasMenuKey = KeyCharacterMap
                     .deviceHasKey(KeyEvent.KEYCODE_MENU);
@@ -163,9 +163,9 @@ public class Screen {
     }
 
     @SuppressWarnings("unchecked")
-    public static boolean isNavigationBarShow(Activity act){
+    public static boolean isNavigationBarShow(Activity activity){
         DisplayMetrics dm = new DisplayMetrics();
-        Display display = act.getWindowManager().getDefaultDisplay();
+        Display display = activity.getWindowManager().getDefaultDisplay();
         display.getMetrics(dm);
         int screenHeight = dm.heightPixels;
 
