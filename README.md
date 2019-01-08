@@ -14,7 +14,7 @@
 ## 下载
 在Gradle中添加依赖：
 ```groovy
-implementation 'com.github.uguker:screen:1.0.4'
+implementation 'com.github.uguker:screen:1.0.5'
 ```
 
 ## Api
